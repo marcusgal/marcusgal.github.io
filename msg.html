@@ -1,0 +1,328 @@
+<html xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office" xmlns="http://www.w3.org/TR/REC-html40"><head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1252"><title>Gaussian Landscape Generator</title>
+
+
+<style>
+<!--
+	.small-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: .83em;}
+	.medium-text {font-family: Arial, Helvetica, sans-serif;
+		color:#000000; font-size: 1em;}
+-->
+</style></head>
+
+<body link="#0000ff" vlink="#0000ff">
+
+<p align="center"><b><font size="6">The Web Page of Max Set of Gaussians Landscape Generator<a name="top"></a></font></b></p>
+<p align="center">&nbsp;</p>
+<div align="center">
+	<table id="table13" border="1" width="78%">
+		<tbody><tr>
+			<td align="center" width="164"><a href="#source code">Source Code</a></td>
+			<td align="center" width="153"><a href="#instructions">Instructions</a></td>
+			<td align="center" width="143"><a href="#examples">Examples</a></td>
+			<td align="center" width="134"><a href="#references">References</a></td>
+			<td align="center"><a href="#contact">Contact</a></td>
+		</tr>
+	</tbody></table>
+	<p>&nbsp;</p></div>
+<h2 align="justify"><b>Introduction</b></h2>
+<p align="justify">The Gaussian landscape generator described here is intended 
+to be a general-purpose tool for generating unconstrained single-objective 
+continuous test problems within box-bounded search spaces. It is also possible 
+to be used as the platform for generating constrained and/or dynamical 
+problems. The major motivation is to increase the research value of 
+experimental studies on Evolutionary Algorithms and other optimization 
+algorithms by giving experimenters access to a set of purposefully built test 
+problems with controllable internal structure.</p>
+<p align="justify">The major advantages of using a landscape generator compared 
+to using classical benchmark test problems are listed as below:</p>
+<ul>
+	<li>
+	<p style="line-height: 150%;" align="justify">The structure of test problems can be conveniently 
+	controlled by a small number of parameters.
+	</p></li><li>
+	<p style="line-height: 150%;" align="justify">A large number of test problems with similar structure 
+	can be generated to increase the reliability of experimental results.
+	</p></li><li>
+	<p style="line-height: 150%;" align="justify">Deep insights into the behaviour of algorithms can be 
+	achieved by relating their performance to the specific structural 
+	properties of test problems.
+</p></li></ul>
+<p align="justify">The basic components or building-blocks of this landscape 
+generator are a set of multivariate Gaussian functions:</p>
+<p align="justify">
+<img src="msg_files/Eq1.gif" border="0" height="51" width="332"></p>
+
+<p align="justify">The fitness value of a vector X is determined by the weighted 
+component that gives it the largest value:</p>
+<p align="justify">
+<img src="msg_files/Eq2.gif" border="0" height="29" width="153"></p>
+
+<p align="justify">Since the normalizing factor 
+of each Gaussian function is a constant, it can be combined with its weight 
+&#969;. Also, the <i>n</i>th root of the Gaussian function (i.e., <i>n</i> 
+is the dimensionality) is used to avoid some issues in high-dimensional spaces.</p>
+
+<p align="justify">The actual fitness function has the following form:</p>
+
+<p><img src="msg_files/Eq3.gif" border="0" height="45" width="328"></p>
+<p>Generally speaking, the number of components serves as a rough indicator of the 
+multimodality of the generated landscapes.</p>
+<p>However, the actual number of optima is likely to be less than the number 
+of components as the peaks of weak components could be dominated by others.</p>
+<p align="center"><img src="msg_files/Fig1.png" border="0" height="312" width="400"></p>
+<p align="justify">In the above example, the fitness function <i>F</i>(X) 
+indicated by the red solid line consists of three components where only the 
+second and the third components contribute to an optimum each. Nevertheless, the 
+first component still plays a role in constructing the overall landscape.</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;" align="right"><a href="#top">Top</a></p>
+<hr>
+<h2 align="justify">Source Code (Matlab)<a name="source code"></a></h2>
+<p align="justify">Initialization Function: <a href="msg_files/initialize.m">initialize.m</a></p>
+<p align="justify">Fitness Function: <a href="msg_files/fitness.m">fitness.m</a></p>
+<p align="justify">Visualization Function: <a href="msg_files/plotlandscape.m">
+plotlandscape.m</a></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;" align="right"><a href="#top">Top</a></p>
+<hr>
+<h2 align="justify">Instructions<a name="instructions"></a></h2>
+<p align="justify"><b><i><font size="4">initialize (n, m, u, l, g, r)</font></i></b></p>
+<p align="justify">This function initializes the parameter values of&nbsp; each 
+component (mean vector, covariance matrix and weight).</p>
+<p align="justify">The following six input parameters are to 
+be specified:</p>
+<table id="table4" border="1" width="67%">
+	<tbody><tr>
+		<td align="center" width="61"><i>n</i></td>
+		<td>the dimensionality of the landscape</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>m</i></td>
+		<td>the number of Gaussian components in each landscape</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>u</i></td>
+		<td>the upper boundary of the search space</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>l</i></td>
+		<td>the lower boundary of the search space</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>g</i></td>
+		<td>the value of the global optimum</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>r</i></td>
+		<td>the ratio between the fitness values of the best possible local optimum and 
+		the global optimum</td>
+	</tr>
+</tbody></table>
+<p>The outputs are the parameter values of each component, stored in three 
+global variables:</p>
+<ul>
+	<li>
+	<p style="line-height: 150%;"><i>meanvector</i> (a <i>m</i>-by-<i>n</i> matrix containing the mean vector of 
+	each component).
+	</p></li><li>
+	<p style="line-height: 150%;"><i>covmatrix_inv</i> (a cell structure containing the inverse covariance matrix 
+	of each component).
+	</p></li><li>
+	<p style="line-height: 150%;"><i>optimumvalue</i> (a vector containing the <span style="font-family: Times New Roman;">
+	<i>&#969;</i> value of each component).</span>
+</p></li></ul>
+<p>With the default setting, the mean vector of each component is generated randomly within [<i>l</i>, <i>
+u</i>]<i><sup>n</sup></i>.</p>
+<p>The covariance matrix of each component is generated in three steps:</p>
+<ul>
+	<li>
+	<p style="line-height: 150%;">A diagonal matrix&nbsp; S with eigenvalues is generated.
+	</p></li><li>
+	<p style="line-height: 150%;">An orthogonal matrix T is generated through <i>n</i>(<i>n</i>-1)/2 
+	rotations with random angles between [-<font face="Times New Roman">&#960;</font>/4, 
+	<font face="Times New Roman">&#960;</font>/4].
+	</p></li><li>
+	<p style="line-height: 150%;">The covariance matrix is generated as T<sup><font size="2">T</font></sup><font face="Times">·</font>S<font face="Times">·</font>T.
+</p></li></ul>
+<p>The <span style="font-family: Times New Roman;"><i>&#969;</i> of the </span>component 
+corresponding to the global optimum is set to <i>g</i> while other weights are randomly generated within [0, <i>g·r</i>].</p>
+<p>To have additional control on the structure of generated landscapes, consider 
+the following approaches:</p>
+<ul>
+	<li>
+	<p style="line-height: 150%;">Generate mean vectors manually or according to a distribution other than 
+	the uniform distribution.
+	</p></li><li>
+	<p style="line-height: 150%;">Use specific rotation angles.
+	</p></li><li>
+	<p style="line-height: 150%;">Use specific variance values (e.g., sharp peaks vs. flat peaks).
+	</p></li><li>
+	<p style="line-height: 150%;">Use specific <span style="font-family: Times New Roman;"><i>&#969; </i>
+	values to explicitly control the height of each component.</span>
+</p></li></ul>
+<p><b><i><font size="4">[f, c]=fitness (X)</font></i></b></p>
+<p>This function calculates the fitness values of a matrix input X.</p>
+<p>X is assumed to be a <i>p</i>-by-<i>n</i> matrix where <i>p</i> is the number of 
+individuals to be 
+evaluated.</p>
+<p>The fitness values are returned in the vector <i>f</i>.</p>
+<p>The values given by each weighted component are returned in <i>c</i>, which 
+is a <i>p</i>-by-<i>m</i> matrix.</p>
+<p>This function is optimized for handling matrix inputs: evaluating 1000 
+individuals at once is much faster than making 1000 separate function calls.</p>
+<p><i><b><font size="4">plotlandscape (u, l, k)</font></b></i></p>
+<p>This function generates surface &amp; contour plots of 2D problems.</p>
+<table id="table5" border="1" width="43%">
+	<tbody><tr>
+		<td align="center" width="61"><i>u</i></td>
+		<td>the upper boundary of the plot</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>l</i></td>
+		<td>the lower boundary of the plot</td>
+	</tr>
+	<tr>
+		<td align="center" width="61"><i>k</i></td>
+		<td>the number of samples to be drawn in each dimension</td>
+	</tr>
+</tbody></table>
+<p>Note that the values of <i>u</i> and <i>l</i> do not necessarily need to be 
+identical to those in the initialization function.</p>
+<p>For the parameter <i>k</i>, the higher its value, the more precise the generated 
+plot.</p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;" align="right"><a href="#top">Top</a></p>
+<hr>
+<h2 align="justify">Examples<a name="examples"></a></h2>
+<p align="justify">This landscape generator is easy to use: run 
+the initialization function once and the fitness function as many times as 
+necessary.</p>
+<p align="justify">A typical routine is given below:</p>
+<table id="table11" border="1" width="91%">
+	<tbody><tr>
+		<td width="243"><i>initialize</i> (2, 100, 5, -5, 10, 0.8); </td>
+		<td><font color="#008000">% 100 Gaussian components, [-5, 5]<sup>2</sup>, 
+		global optimum value 10, best possible local optimum value 8</font></td>
+	</tr>
+	<tr>
+		<td width="243"><i>plotlandscape</i> (5, -5, 50);&nbsp; </td>
+		<td><font color="#008000">% Generate a surface plot and a contour plot with 50 samples 
+		within [-5, 5] in each 
+		dimension</font></td>
+	</tr>
+	<tr>
+		<td width="243"><i>f=fitness </i>(10<font face="Times">*</font>rand(1000,2)-5);</td>
+		<td><font color="#008000">% Calculate the fitness values of 1000 random 
+		individuals within [-5, 5]<sup>2</sup></font></td>
+	</tr>
+</tbody></table>
+<p align="justify">Note that the initialization function uses random 
+procedures <i>rand </i>( )and <i>randn </i>( ) and it is likely to get difference 
+landscapes even with the same input parameters.</p>
+<p align="justify">In order to precisely duplicate the landscapes used in the 
+experiments, it is recommended to record the seeds used in <i>rand</i> ( ) and <i>
+randn </i>( ).</p>
+<p align="justify">Some examples of landscapes with different parameter values 
+are shown below.</p>
+<p align="justify"><b>A landscape with 20 components</b></p>
+<table id="table12" border="1" width="57%">
+	<tbody><tr>
+		<td><img src="msg_files/Exp1_L.png" border="0" height="300" width="400"></td>
+		<td><img src="msg_files/Exp1_C.png" border="0" height="300" width="400"></td>
+	</tr>
+</tbody></table>
+<p align="justify">&nbsp;</p>
+<p><b>A landscape with 100 components</b></p>
+<table id="table7" border="1" width="57%">
+	<tbody><tr>
+		<td width="284">
+		<img src="msg_files/Exp2_L.png" border="0" height="300" width="400"></td>
+		<td>
+		<img src="msg_files/Exp2_C.png" border="0" height="300" width="400"></td>
+	</tr>
+</tbody></table>
+<p><b>A landscape where the global optimum is significantly better than local 
+optima.</b></p>
+<table id="table8" border="1" width="57%">
+	<tbody><tr>
+		<td width="284">
+		<img src="msg_files/Exp3_L.png" border="0" height="300" width="400"></td>
+		<td><img src="msg_files/Exp3_C.png" border="0" height="300" width="400"></td>
+	</tr>
+</tbody></table>
+<p align="left"><b>A landscape with a big-valley structure. </b></p>
+<table id="table9" border="1" width="57%">
+	<tbody><tr>
+		<td width="284">
+		<img src="msg_files/Exp4_L.png" border="0" height="300" width="400"></td>
+		<td>
+		<img src="msg_files/Exp4_C.png" border="0" height="300" width="400"></td>
+	</tr>
+</tbody></table>
+
+<p style="margin-top: 0pt; margin-bottom: 0pt;" align="right"><a href="#top">Top</a></p>
+<hr>
+<h2 align="justify"><b>References<a name="references"></a></b></h2>
+<h3 align="justify">MSG Papers</h3>
+<p align="justify">M. Gallagher and B. Yuan (2006) "A General-Purpose Tunable 
+Landscape Generator". To appear in <i>IEEE Transactions on Evolutionary 
+Computation</i>.</p>
+<p align="justify"><span lang="EN-US"><font size="3">B. Yuan and M. Gallagher 
+(2003) &#8220;On Building a Principled Framework for Evaluating and Testing 
+Evolutionary Algorithms: A Continuous Landscape Generator&#8221;. In<i> Proceedings of 
+the 2003 Congress on Evolutionary Computation</i>, IEEE, pp. 451-458, Canberra, 
+Australia.</font></span></p>
+<h3 align="justify">MSG Application Papers</h3>
+<p align="justify">Y. Gong, M. Nakamura and S. Tamaki (2005) "<strong style="font-weight: 400;">Parallel 
+Genetic Algorithms on Line Topology of Heterogeneous Computing Resources". In <i>
+Proceedings of 2005 Conference on Genetic and Evolutionary Computation</i>, ACM, 
+pp. 1447-1454, Washington DC, USA.</strong></p>
+<p align="justify"><span class="GramE"><span lang="EN-US"><font size="3">B. Yuan 
+and M. Gallagher (2004) &#8220;Statistical Racing Techniques for Improved Empirical 
+Evaluation of Evolutionary Algorithms&#8221;.</font></span></span><span lang="EN-US"><font size="3"> 
+In<i> Proceedings of the 8<sup>th</sup> International Conference on Parallel 
+Problem Solving from Nature (PPSN VIII)</i>, LNCS 3242, pp. 172-181, Birmingham, 
+UK.</font></span></p>
+<h3 align="justify">Landscape Generator Resources</h3>
+<p align="justify">M. Gaviano, D. E. Kvasov, D. Lera and Y.D. Sergeyev (2003) "Algorithm 829: 
+Software for Generation of Classes of Test Functions with Known Local and Global 
+Minima for Global Optimization". <i>ACM Transactions on Mathematical Software</i>, 
+vol. 29(4), pp. 469-480.</p>
+<p align="justify">Z. Michalewicz, K. Deb, M. Schmidt and T. Stidsen (2000) 
+"Test-case Generator for Nonlinear Continuous Parameter Optimization 
+Techniques". <i>IEEE Transactions on Evolutionary Computation</i>, vol. 4(3), 
+pp. 197-215. </p>
+<p align="justify">R. W. Morrison and K. A. De Jong (1999) "A Test Problem 
+Generator for Non-Stationary Environments". In <i>Proceedings of the 1999 
+Congress on Evolutionary Computation</i>, pp. 2047-2053.</p>
+<p align="justify">K. A. De Jong, M. A. Potter and W. M. Spears (1997) "Using 
+Problem Generators to Explore the Effects of Epistasis". In <i>Proceedings of 
+the Seventh International Conference on Genetic Algorithms</i>, pp. 228-345.</p>
+<p align="justify">B. E. Stuckman (1988) "A Global Search Method for Optimizing 
+Nonlinear Systems". <i>IEEE Transactions on Systems, Man, and Cybernetics</i>, 
+vol. 18(6), pp. 965-977.</p>
+<p align="justify">B. Addis and M. Locatelli "A New Class of Test Functions for 
+Global Optimization". Link:
+<a href="http://globopt.dsi.unifi.it/gol/test_functions/index.html">
+http://globopt.dsi.unifi.it/gol/test_functions/index.html</a></p>
+<p align="justify">C. Macnish "Huygens Benchmarking Suite". Link:
+<a href="http://karri.csse.uwa.edu.au/cara/huygens/index.php">
+http://karri.csse.uwa.edu.au/cara/huygens/index.php</a></p>
+<p align="justify">W. M. Spears and M. A. Potter "Repository of Test Problem 
+Generators". Link: <a href="http://www.cs.uwyo.edu/%7Ewspears/generators.html">
+http://www.cs.uwyo.edu/~wspears/generators.html</a></p>
+<p>P. N. Suganthan "EC Benchmarking (including CEC'05, '06, '07 special sessions)". Link:
+<a href="http://www.ntu.edu.sg/home/EPNSugan/index_files/comp-functions.htm">
+http://www.ntu.edu.sg/home/EPNSugan/index_files/comp-functions.htm</a></p>
+<p style="margin-top: 0pt; margin-bottom: 0pt;" align="right"><a href="#top">Top</a></p><hr>
+<h2>Contact<a name="contact"></a></h2>
+<p align="justify">We are always happy to hear your experience with this landscape generator.</p>
+<p align="justify">Please address your feedback and comments to:</p>
+<p><b><a target="_blank" href="http://www.itee.uq.edu.au/%7Eboyuan"><font color="#000000">Bo Yuan</font></a></b>:
+<a href="mailto:boyuan@itee.uq.edu.au">boyuan@itee.uq.edu.au</a></p>
+<p><b><a target="_blank" href="http://www.itee.uq.edu.au/%7Emarcusg"><font color="#000000">Marcus Gallagher</font></a></b>:
+<a href="mailto:marcusg@itee.uq.edu.au">marcusg@itee.uq.edu.au</a></p>
+
+<p align="center">Last Updated:
+<!--webbot bot="Timestamp" S-Type="EDITED" S-Format="%d/%m/%Y" startspan -->19/11/2009<!--webbot bot="Timestamp" endspan i-checksum="12602" --></p>
+
+</body></html>

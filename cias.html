@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<title>Marcus Gallagher: Circles in a Square Packing Problem Matlab Code</title>
+<meta name="keywords" content="" />
+<meta name="description" content="" />
+<link href="default.css" rel="stylesheet" type="text/css" />
+</head>
+<body>
+<table width="780" border="0" align="center" cellpadding="0" cellspacing="0" class="bg1">
+	<tr>
+		<td class="text1" style="height: 50px;">Marcus Gallagher</td>
+	</tr>
+	
+	<tr>
+		<td class="bg5"><table width="100%" border="0" cellspacing="0" cellpadding="0" style="height: 62px; padding-top: 15px;">
+			<tr align="center">
+				<td><a href="index.html" class="link1">homepage</a></td>
+				<td><a href="research.html" class="link1">research</a></td>
+				<td><a href="publications.html" class="link1">publications</a></td>
+				<td><a href="software.html" class="link1">software</a></td>
+				<td><a href="teaching.html" class="link1">teaching</a></td>
+				<td><a href="#" class="link1">other </a></td>
+			</tr>
+		</table></td>
+	</tr>
+	
+	<!--
+	<tr>
+		<td valign="top" class="bg6">&nbsp;</td>
+	</tr>
+	-->
+	<tr>
+		<td><table width="780" border="0" cellspacing="0" cellpadding="0">
+				<tr valign="top">
+					<td width="20">&nbsp;</td>
+					
+					<td width="710"><table width="473" border="0" cellspacing="0" cellpadding="0">
+							<tr>
+								<td width="710"><img src="images/spacer.gif" alt="" width="30" height="30" /></td>
+							</tr>
+							<!--
+							<tr>
+								<td><img src="images/img6.jpg" alt="" width="510" height="24" /></td>
+							</tr>
+							-->
+							<tr>
+								<td class="bg1"><table width="710" border="0" align="center" cellpadding="0" cellspacing="0">
+										<tr>
+											<td class="text2">Circles in a Square Packing MATLAB Code</td>
+										</tr>
+										<!--
+										<tr>
+											<td class="text3">Maecenas luctus lectus at sapien</td>
+										</tr>
+										-->
+										<tr>
+											<td class="bg3"><img src="images/spacer.gif" alt="" width="100" height="1" /></td>
+										</tr>
+										<tr>
+											<td>&nbsp;</td>
+										</tr>
+										<tr>
+											<td width="473">
+											
+											<p>Consider the following problem.  Give the unit square and a specified number of circles (constrained to have equal radii), find the best possible packing; i.e. position the circles in the square to maximize 
+											the ratio between the area contained within the circles and the area of the square, enforcing the constraint that all circles must be
+											fully contained within the square.  This problem is a simplified but similar problem to many real-world problems in logistics, network planning, etc.
+											
+											<p>For the purposes of evaluating optimization algorithms, Circles in a Square packing is a source of benchmark problems with several attractive features.
+											Here you can download (free for research/non-commercial use) a Matlab implementation of this problem set suitable for use in evaluating optimization algorithms.
+											
+											<h2 id="Problem">Problem Formulation</h2>
+<p>
+The Circles in a Square packing problem involves finding the arrangement of <em>n</em> circles in a unit square such that the radius of the circles, <em>r</em>, is maximised, where no two circles overlap and no part of a circle leaves the square.  This is equivalent to the problem of placing <em>n</em> points in a square such that the minimum distance, <em>m</em> between any two points is maximised.  The relationship between the radius, <em>r</em>, and the distance <em>m</em> is as follows:
+</p>
+<pre class="wiki">m = 2r/(1-2r)
+r = m/(2+2m)
+</pre><p>
+The solution is a value of the radius (or distance) and the set of co-ordinates of the circle-centres (or points) that gives that value.  The relationship between the co-ordinates of the circle centres, <em>c</em>, and the point co-ordinates, <em>p</em> is as follows:
+</p>
+<pre class="wiki">c = (m/2 + p)/(1 + m)
+p = (c - r)/(1 - 2r)
+</pre><p>
+Values of <em>c</em> are constrained to the range [r, 1-r].  Values of <em>p</em> are constrained to the range [0, 1].
+</p>
+<p>
+When <em>n</em> &gt; 2, this is a hard optimisation problem with multiple local optima.  For certain values of <em>n</em> there are several, distinct, globally optimal solutions.
+</p>
+<p>
+This problem can be generalised by working in a higher-dimensional space (<em>d</em>-spheres in a <em>d</em>-cube), or by using different shapes for packing (circles in a circle, cylinders in a tetrahedron, etc.).
+</p>
+<h2 id="Thecirc_in_squareMATLABfunction">The circ_in_square MATLAB function</h2>
+<p>
+The Matlab file circ_in_square.m provides and objective function for the Circles in a Square problem.  This function uses the "distance between points" form of the problem, with co-ordinates in the range [0, 1].  This function also generalises to the <em>d</em>-spheres in a <em>d</em>-cube for <em>n</em> d-circles, where <em>d</em> &gt;= 1 and <em>n</em> &gt;= 2.
+</p>
+<p>
+The function has the following form, where all parameters are required:
+</p>
+<pre class="wiki">score = circ_in_square(num, dim, flags, inputs)
+</pre><p>
+Parameters:
+</p>
+<ul><li><em>num</em> - the number of circles or <em>d</em>-spheres in the problem, <em>n</em>
+</li><li><em>dim</em> - the dimensionality of the <em>d</em> spheres and <em>d</em>-cube
+</li><li><em>flags</em> - 2 x 1 vector of flag variables to set options for the function
+<ul><li><em>flags(1)</em> - Minimisation or maximisation
+<ul><li><em>0</em> - minimisation problem
+</li><li><em>1</em> - maximisation problem
+</li></ul></li><li><em>flags(2)</em> - Constraint handling
+<ul><li><em>0</em> - Handle constraint violations by repairing the input values that violate the constraints of the problem.
+</li><li><em>1</em> - Handle constraint violations by returning a single, poor value if there is any violation.
+</li><li><em>2</em> - Repair any violations, then add a penalty that is proportional to the magnitude of the violations.
+</li></ul></li><li><em>inputs</em> - the set of co-ordinates of the points, unrolled into a vector of length <em>n</em> * <em>d</em>.  The first <em>n</em> values are the co-ordinates of the first dimension, the next <em>n</em> values are the co-ordinates of the second dimension, and so on up to the <em>d</em>th dimension.
+</li></ul></li></ul><p>
+Return Value:
+</p>
+<ul><li><em>score</em> - for a solution that doesn't violate any constraints, the score is the minimum distance between any two points.  For a minimisation problem, the distance is multiplied by -1.
+</li></ul>
+<h2 id="Code">Code</h2>
+<p><ul>
+<li><a href="circ_in_square.m">circ_in_square.m</a> - Objective function for the circles in a square problem
+<li><a href="plot_circ_in_square.m">plot_circ_in_square.m</a> - function to plot a solution using coordinates entered into circ_in_square
+<li><a href="solutions1-200.mat">solutions1-200.mat</a> - Matlab structure containing coordinates and values from packomania.com (1-200 circles).  Note that these were correct to 12 decimal places of accuracy at the time the file was created.
+</ul></p>
+
+<h2 id="Examples">Example usage</h2>
+<p><ul>
+<li>To evaluate a random solution to the 5-circle problem, with a 2D packing problem (i.e. 2D circles in a 2D square), treating the problem as a minimization problem and repairing constraint violations:
+<pre>
+>> soln = rand(1,10);
+>> circ_in_square(5,2,[0;0],soln)
+>> plot_circ_in_square(soln)
+</pre>
+</ul>
+</p>
+
+<h2 id="MoreInfo">Acknowledgement</h2>
+<p>
+This software was originally implemented by Lachlan Dufton.
+</p>
+
+<h2 id="MoreInfo">More Information</h2>
+<p>
+The site <a class="ext-link" href="http://www.packomania.com/">Packomania</a> keeps information and diagrams for the best known solutions of the Circles in a Square problem.  This includes circle radius, point distance and co-ordinates for all solutions where 1&lt;=<em>n</em>&lt;=300, and select solutions where 300&lt;<em>n</em>&lt;1000.
+</p>
+
+											
+											
+											<p class="text3">References</p>
+</p>
+<ul>
+<li> The <a href="http://www.packomania.com">Packomania Website</a> is an extensive resource on this and similar packing problems.
+
+<li>
+M. Gallagher.  <a href="cias_using_edas_ppsn12.pdf">Beware the Parameters: Estimation of Distribution Algorithms Applied to Circles in a Square Packing</a>.  In <i>Parallel Problem Solving from Nature (PPSN XII)</i>, pp.478-487, Springer, 2012. (Note: the experimental results in this paper contain some errors found after publication.  Please see the <a href="papers/poster_ppsn12.pdf">poster presented at PPSN'12</a> correcting these results.)
+
+<li>
+M. Gallagher.  <a href="papers/final_circles_square_mic09.pdf">Investigating Circles in a Square Packing Problems as a Realistic Benchmark for 
+Continuous Metaheuristic Optimization Algorithms.</a>  In <i>Proc. MIC 2009: The VIII Metaheuristics 
+International Conference</i>, 2009.
+</ul>
+
+											
+										</tr>
+									</table></td>
+							</tr>
+							<!--
+							<tr>
+								<td><img src="images/img8.jpg" alt="" width="510" height="16" /></td>
+							</tr>
+							-->
+							<tr>
+								<td>&nbsp;</td>
+							</tr>
+						</table></td>
+					<td width="20">&nbsp;</td>
+				</tr>
+			</table></td>
+	</tr>
+	<tr>
+		<td class="bg4"><h3 class="text5">Copyright © 2012 Marcus Gallagher. Designed by <a href="http://www.webpagetemplates.org">Web Page Templates</a></h3></td>
+	</tr>
+</table>
+</body>
+</html>
