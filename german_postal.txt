@@ -1,0 +1,206 @@
+# spaeth2_07.txt
+#
+#  Discussion:
+#
+#    Data matrix with 89 rows and 3 columns
+#
+#    This data represents, for each of 89 postal zones in Bavaria,
+#
+#      x1, the area of each zone,
+#      x2, the population of each zone,
+#      x3, the population density of each zone, that is, x2 / x1.
+#
+#    The districts are listed below in order, corresponding to the
+#    data.  We list the index, the postal code, and the name of the
+#    district:
+#
+#     1  800  Muenchen
+#     2  801  Muenchen-Land Ost
+#     3  802  Muenchen-Land Sued
+#     4  803  Muenchen-Land West
+#     5  804  Muenchen-Land Nord
+#     6  805  Freising
+#     7  806  Dachau
+#     8  807  Ingolstadt
+#     9  808  Fuerstenfeldbruck
+#    10  809  Wasserburg
+#    11  810  Garmisch-Partenkirchen
+#    12  811  Murnau
+#    13  812  Weilheim
+#    14  813  Starnberg
+#    15  815  Holzkirchen
+#    16  816  Miesbach
+#    17  817  Bad Toelz
+#    18  818  Tegernsee
+#    19  819  Wolfratshausen
+#    20  820  Rosenheim
+#    21  821  Prien
+#    22  822  Traunstein
+#    23  823  Bad Reichenhall
+#    24  824  Berchtesgaden
+#    25  825  Dorfen
+#    26  826  Muehldorf
+#    27  830  Landshut
+#    28  831  Landshut
+#    29  833  Eggenfelden
+#    30  834  Pfarrkirchen
+#    31  835  Plattling
+#    32  836  Deggendorf
+#    33  837  Regen
+#    34  836  Landau (Isar)
+#    35  839  Passau
+#    36  840  Regensburg
+#    37  841  Regensburg
+#    38  842  Kelheim
+#    39  843  Neumarkt
+#    40  844  Straubing
+#    41  845  Amberg
+#    42  846  Schwandorf
+#    43  847  Nabburg
+#    44  848  Weiden
+#    45  849  Cham
+#    46  850  Nuernberg
+#    47  851  Fuerth
+#    48  852  Erlangen
+#    49  853  Neustadt (Aisch)
+#    50  854  Schwabach
+#    51  855  Forchheim
+#    52  856  Lauf
+#    53  857  Pegnitz
+#    54  858  Bayreuth
+#    55  859  Marktredwitz
+#    56  860  Bamberg
+#    57  862  Lichtenfels
+#    58  863  Coburg
+#    59  864  Kronach
+#    60  865  Kulmbach
+#    61  866  Muenchberg
+#    62  867  Hof
+#    63  870  Wuerzburg
+#    64  871  Kitzingen
+#    65  872  Schweinfurt
+#    66  873  Bad Kissingen
+#    67  874  Bad Neustadt (Saale)
+#    68  875  Aschaffenburg
+#    69  876  Miltenberg
+#    70  877  Lohr
+#    71  878  Gemuenden
+#    72  880  Ansbach
+#    73  882  Gunzenhausen
+#    74  883  Treuchtlingen
+#    75  885  Donauwoerth
+#    76  886  Noerdlingen
+#    77  887  Guenzburg
+#    78  888  Dillingen
+#    79  889  Aichach
+#    80  890  Augsburg
+#    81  891  Landsberg
+#    82  892  Schongau
+#    83  893  Schwabmuenchen
+#    84  894  Memmingen
+#    85  895  Kaufbeuren
+#    86  896  Kempten
+#    87  897  Immenstadt
+#    88  898  Oberstdorf
+#    89  899  Lindau
+#
+#  Modified:
+#
+#    02 May 2002
+#
+#  Reference:
+#
+#    Helmut Spaeth,
+#    Cluster Analysis Algorithms 
+#    for Data Reduction and Classification of Objects,
+#    Ellis Horwood, 1980, pages 91-92.
+#
+ 330.93  1306024  3946.5
+ 759.12   138706   182.1
+ 209.38    55749   266.3
+ 315.05   135167   429.0
+ 181.65    40366   272.2
+1085.39   131198   120.9
+1019.17   121499   119.2
+ 576.91   141663   245.6
+ 365.02    54456   149.2
+ 568.54    47490    83.5
+ 568.70    53483    94.0
+ 459.37    27026    58.8
+ 582.19    60539   104.0
+ 229.36    38607   168.3
+ 322.42    23234    72.1
+ 347.73    30889    88.8
+ 671.30    36300    54.1
+ 271.42    21515    79.3
+ 261.44    42482   162.5
+ 961.91   154739   160.9
+ 441.50    39590    89.7
+1085.09   135459   124.8
+  97.93    23578   240.8
+ 125.10    24836   198.5
+ 505.88    38568    76.2
+1207.38   174628   144.6
+1336.79   152268   113.9
+1055.09    79532    75.4
+ 456.25    33033    72.4
+ 474.83    37083    78.1
+1692.89   156557    92.5
+  24.49    20087   820.2
+ 858.06    74383    86.7
+ 528.88    40814    77.2
+1744.45   202356   116.0
+ 679.88   188916   277.9
+1123.26   109480    97.5
+ 744.65    67574    90.7
+1114.27    91987    82.6
+ 973.13   106762   109.7
+1199.54   136177   113.5
+ 593.69    61065   102.9
+ 653.04    46071    70.5
+1053.85   142163   134.9
+1191.14   102431    86.0
+ 984.24   685783   696.6
+  55.61    97563  1754.4
+ 310.62   145511   468.5
+ 889.59    68424    76.9
+ 757.54   104125   137.5
+ 747.97    98102   131.2
+ 528.02    75965   143.9
+ 432.77    41756    96.5
+ 939.95   150127   159.7
+ 887.22   123161   138.8
+1726.77   225552   130.6
+ 538.57    89989   167.1
+ 453.58   110799   244.3
+ 489.63    74806   152.8
+ 520.87    72111   138.4
+ 223.60    35439   158.5
+ 900.46   190239   211.3
+1282.67   270471   210.9
+ 658.07    81060   123.2
+1515.92   224789   148.3
+ 504.19    66731   132.4
+ 870.41    77400    88.9
+ 710.54   238722   336.0
+ 410.80    57350   139.6
+ 446.85    60078   134.4
+ 859.52    77689    90.4
+1672.24   174620   104.4
+ 641.85    53229    82.9
+1209.98   102429    84.7
+1415.78   135007    95.4
+ 539.99    51216    94.8
+ 477.40    71767   150.3
+ 561.72    62753   111.7
+ 713.16    61575    86.3
+1511.03   467367   309.3
+ 577.75    60277   104.3
+ 396.82    38152    96.1
+ 717.49    72692   101.3
+1026.50   123112   119.9
+1048.81   120165   114.6
+ 771.94   115852   150.1
+ 592.27    58453    98.7
+ 319.08    13348    41.8
+ 323.48    69094   213.6
