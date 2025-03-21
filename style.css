@@ -1,0 +1,74 @@
+/*
+Date: 2014
+Author: Rachael Morgan
+*/
+
+body { 
+	background:#fefefe; 
+	font-family: Tahoma, Geneva, sans-serif;
+	color : #444;
+	padding-top:5px;
+	letter-spacing:0.01em;
+	padding:0;
+	line-height:1.4;
+}
+
+#container { 
+	position : relative;
+	width : 80%; /* 940px */
+	min-width : 640px;
+	max-width : 1200px; 
+	min-height:500px;
+	margin : 0 auto 1.5em auto; 
+	padding:10px 20px;
+	-moz-border-radius: 15px;
+	border-radius: 15px;
+}
+a:link, a:visited {color:#222;text-decoration:underline;font-weight:normal;-moz-border-radius:3px;}
+a:hover {color:#000;text-decoration:none;border-bottom:none;}
+
+p {margin:15px 0;}
+img {border:none;}
+p img {margin:5px;}
+	
+strong {font-weight:bold;}
+em {font-style:italic;}
+hr {  
+	border: 0;
+	width: 100%;
+	color: #ddd;
+	background-color: #ddd;
+	height: 1px;
+}
+		
+/* ------------------- Headers -------------------------------*/
+	 
+h1, h2 {
+	font-weight:bold;
+	margin-top:20px;
+	margin-bottom:20px;
+	padding:5px 0;
+	color:#883099;
+	font-family: arial, helvetica, sans-serif;
+	line-height: 1.25em;
+} 
+	 
+h3 {
+	font-weight:bold;
+	font-family: arial, helvetica, sans-serif;
+}
+h4, h5, h6 {
+	font-weight:bold;
+	margin:15px 0;
+	font-family: arial, helvetica, sans-serif;
+}
+
+/* ------------------- Lists -------------------------------*/
+
+ul.tick {margin-left:10px;}
+ul.disc, ol.decimal  {margin-left:30px;}
+ul.disc li {list-style:disc;}
+ul.tick li {background:url(../images/tick.png) no-repeat center left;padding-left:35px;padding-top:10px;}
+ol.decimal li {list-style-type:decimal;}
+ul.disc li, ul.tick li, ol.decimal li {margin-left:10px;padding-bottom:5px;}
+	
